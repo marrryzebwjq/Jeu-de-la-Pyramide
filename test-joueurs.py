@@ -1,3 +1,6 @@
+from Deck import Deck
+from Joueur import *
+
 d = Deck()
 d.melanger()
 print(d)

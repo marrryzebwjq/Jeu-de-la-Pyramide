@@ -1,3 +1,6 @@
+from Deck import Deck
+from Pyramide import Pyramide
+
 deck = Deck()
 deck.melanger()
 print(deck.montrer())

@@ -1,4 +1,4 @@
-from classes.Carte import Carte
+from Carte import Carte
 import random
 
 for c in Carte.COULEURS :
