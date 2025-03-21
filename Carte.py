@@ -1,3 +1,5 @@
+from copy import copy
+
 class Carte :
     """
     Une carte à jouer (pour un jeu classique de 52 cartes, sans joker).

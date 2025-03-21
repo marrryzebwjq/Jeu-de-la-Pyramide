@@ -1,3 +1,6 @@
+from Carte import Carte
+import random
+
 class Deck :
     def __init__(self, taille=52, custom_cards=False, ui=False) :
         self.ui = ui

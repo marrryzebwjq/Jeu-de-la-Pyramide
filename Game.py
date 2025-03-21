@@ -1,3 +1,10 @@
+from Carte import Carte
+from Deck import Deck
+from Hand import Main
+from Joueur import Joueur, JoueurPresqueRandom, AdversaireIA
+from Pyramide import Pyramide
+from IPython.display import clear_output
+
 class Game:
     POINTS = {"claim" : 1, "denoncer_success" : 2, "denoncer_failed" : 3}
 

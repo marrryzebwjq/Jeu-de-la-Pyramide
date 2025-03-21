@@ -1,3 +1,8 @@
+from Carte import Carte
+from Deck import Deck
+from Hand import Main
+import random
+
 class Joueur:
     ACTIONS = {"o" : "oui", "n" : "non"}
     STOP = ["stop", "quit", "q", "exit"]

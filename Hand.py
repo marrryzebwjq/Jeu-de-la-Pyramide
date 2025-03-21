@@ -1,4 +1,7 @@
-from collections import abc
+from Carte import Carte
+from Deck import Deck
+#from collections import abc
+
 class Main :
     def __init__(self, deck, nb_cartes) :
         self.cartes = None

@@ -1,6 +1,9 @@
-import Game
-
-
+from Carte import Carte
+from Deck import Deck
+from Hand import Main
+from Joueur import Joueur, JoueurPresqueRandom, AdversaireIA
+from Pyramide import Pyramide
+from Game import Game
 
 ##### Joueur vs Joueur : Partie classique
 
@@ -89,6 +92,7 @@ j2.show_stats()
 
 ##### Bot Simple vs IA : 400 cartes, 120 tours (15 étages), 20 cartes par joueur, pas d'affichage, 1 partie
 
+
 #main
 cards = [Carte(valeur, couleur, custom_val=True) for valeur in range(1, 100) for couleur in Carte.COULEURS]  # 4 cartes par valeur
 custom_deck = Deck(custom_cards=cards)
@@ -112,3 +116,4 @@ print(j2, '\n')
 
 j1.show_stats(); print()
 j2.show_stats()
+
