@@ -3,7 +3,9 @@ from Deck import Deck
 from Hand import Main
 from Joueur import Joueur, JoueurPresqueRandom, AdversaireIA
 from Pyramide import Pyramide
-from IPython.display import clear_output
+
+#from IPython.display import clear_output   # pour clear l'output dans un notebook (.pynb)
+import os                                   # pour clear le terminal (.py)
 
 class Game:
     POINTS = {"claim" : 1, "denoncer_success" : 2, "denoncer_failed" : 3}
@@ -48,7 +50,8 @@ class Game:
 
     def clearUI(self) :
         if self.clear_between_rounds :
-            clear_output()
+            #clear_output()
+            os.system('cls||clear')
 
     def new_deck(self) :
         deck = Deck()
