@@ -135,12 +135,13 @@ class AdversaireIA(JoueurPresqueRandom):
         print(f"{self.nom} (IA Améliorée) : {self.points} pts")
         print(f"Proba de bluffer              : {self.probaBluff}")
         print(f"Proba de dénoncement          : {self.probaDenonce}")
-        print(f"Bluff réussis/ratés           : {self.bluffReussis} / {self.bluffRate}")
-        print(f"Dénonciations reussies/ratées : {self.denonceReussi} / {self.denonceRate}")
+        print(f"Bluff réussis/ratés           : {self.bluffReussis} | {self.bluffRate}")
+        print(f"Dénonciations reussies/ratées : {self.denonceReussi} | {self.denonceRate}")
         print(f"Nombre d'accusations reçues   : {self.cptAccuse}")
         print(f"Cartes mémorisées : ")
-        for c in self.cartesAdversaire :
-            print(c, end=' ')
+        for c in self.cartesAdversaire : print(c, end=' ')
+        print('\n')
+        
 
     #def bluffer(self, valeur):
     #    if valeur in self.cartesInterditesBluff:
