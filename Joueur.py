@@ -14,6 +14,10 @@ class Joueur:
     def __str__(self):
         return f"{self.nom} ({self.points} pts) : {self.main.__str__()}"
 
+    def show_stats(self):
+        print(f"{self.nom} (Human) : {self.points} pts")
+
+
     # début de jeu
     def recevoir_main(self, deck, nb_cartes):
         self.main = Main(deck, nb_cartes)
@@ -72,10 +76,15 @@ class JoueurPresqueRandom(Joueur):
         self.probaDenonce = probaDenonce                # Probabilité de dénonciation du joueur
 
     # méthodes parent :
-    # recevoir_main(self, deck, nb_cartes)
+    # recevoir_main(self, deck, nb_cartes) - show_stats()
     # choose_action1(self) - choose_action2(self)
     # possede_carte(self, carte) - ajouter_points(self, points)
     # claimed(self, points, success, bluff, accused, manche, adv_p_denonce) - denoncer(self, points, success, card, manche, adv_p_denonce) - not_denoncer(self, points)
+
+    def show_stats(self):
+        print(f"{self.nom} (IA Simple) : {self.points} pts")
+        print(f"Proba de bluffer     : {self.probaBluff}")
+        print(f"Proba de dénoncement : {self.probaDenonce}")
 
 
     def choose_action1(self, carte) :
@@ -112,11 +121,21 @@ class AdversaireIA(JoueurPresqueRandom):
         self.stopMentir = False
 
     # méthodes parent :
-    # recevoir_main(self, deck, nb_cartes)
+    # recevoir_main(self, deck, nb_cartes) - show_stats()
     # choose_action1(self) - choose_action2(self)
     # possede_carte(self, carte) - ajouter_points(self, points)
     # claimed(self, points, success, bluff, accused, manche, adv_p_denonce) - denoncer(self, points, success, card, manche, adv_p_denonce) - not_denoncer(self, points)
 
+    def show_stats(self):
+        print(f"{self.nom} (IA Améliorée) : {self.points} pts")
+        print(f"Proba de bluffer              : {self.probaBluff}")
+        print(f"Proba de dénoncement          : {self.probaDenonce}")
+        print(f"Bluff réussis/ratés           : {self.bluffReussis} / {self.bluffRate}")
+        print(f"Dénonciations reussies/ratées : {self.denonceReussi} / {self.denonceRate}")
+        print(f"Nombre d'accusations reçues   : {self.cptAccuse}")
+        print(f"Cartes mémorisées : ")
+        for c in self.cartesAdversaire :
+            print(c, end=' ')
 
     #def bluffer(self, valeur):
     #    if valeur in self.cartesInterditesBluff:
@@ -180,6 +199,7 @@ class AdversaireIA(JoueurPresqueRandom):
 
     def recalcul_proba(self, manche, adv_p_denonce): # Si l'adversaire dénonce souvent (>= 0.3), l'IA cesse presque totalement de bluffer
 
+        # -- v2 -- #
       # Si l'adversaire dénonce souvent (>= 0.3), l'IA cesse presque totalement de bluffer
       if (self.cptAccuse >= 1 and manche == 20 ):
         self.stopMentir = True
