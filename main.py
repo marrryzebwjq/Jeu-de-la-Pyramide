@@ -119,7 +119,7 @@ j2.show_stats()
 """
 
 
-##### Bot Simple vs IA : 400 cartes, 120 tours (15 étages), 20 cartes par joueur, pas d'affichage, 100 parties
+##### Bot Simple vs IA : 400 cartes, 120 tours (27 étages), 4 cartes par joueur, pas d'affichage, 1000 parties
 n_parties = 1000
 afficher = False
 
