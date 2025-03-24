@@ -98,7 +98,7 @@ class Game:
         self.adversaire(joueur).claimed(p, success=True, bluff=False, accused=True, manche=self.tour, adv_p_denonce=self.getAvdPdenonce(joueur))   #claim success (pas bluff)
 
 
-    ###### à modifier ######
+    ###### à modifier ###### (est uniquement utilisé dans la V1, voir Joueur.py, ligne 231)
     def getAvdPdenonce(self, joueur):
         if isinstance(self.adversaire(joueur), JoueurPresqueRandom):
             return self.adversaire(joueur).probaDenonce
