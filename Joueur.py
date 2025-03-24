@@ -203,24 +203,31 @@ class AdversaireIA(JoueurPresqueRandom):
     #    self.probaBluff = max(0.1, 0.2 + (self.bluffReussis - self.bluffRate) * 0.05)
     #    self.probaDenonce = min(0.5, 0.2 + (self.denonceReussi - self.denonceRate) * 0.05)
 
-    def recalcul_proba(self, manche, adv_p_denonce): # Si l'adversaire dénonce souvent (>= 0.3), l'IA cesse presque totalement de bluffer
-
+    def recalcul_proba_v2(self, manche, adv_p_denonce): # Si l'adversaire dénonce souvent (>= 0.3), l'IA cesse presque totalement de bluffer
         # -- v2 -- #
-      # Si l'adversaire dénonce souvent (>= 0.3), l'IA cesse presque totalement de bluffer
-      if (self.cptAccuse >= 1 and manche == 20 ):
-        self.stopMentir = True
-        self.probaBluff = 0.01
-        print("true")
-      elif(self.stopMentir):
-        self.probaBluff = 0.01
-      else:
-        self.probaBluff = max(0.01, self.probaBluff + (self.bluffReussis - self.bluffRate) * 0.05)
+        # Si l'adversaire dénonce souvent (>= 0.3), l'IA cesse presque totalement de bluffer
+        if (self.cptAccuse >= 1 and manche == 20 ):
+            self.stopMentir = True
+            self.probaBluff = 0.01
+            #print("true")
+        elif(self.stopMentir):
+            self.probaBluff = 0.01
+        else:
+            self.probaBluff = max(0.01, self.probaBluff + (self.bluffReussis - self.bluffRate) * 0.05)
 
+            self.probaDenonce = min(0.5, 0.2 + (self.denonceReussi - self.denonceRate) * 0.05)
+
+    def recalcul_proba_v1(self, manche, adv_p_denonce): # Si l'adversaire dénonce souvent (>= 0.3), l'IA cesse presque totalement de bluffer
+        # -- v1 -- #
+        if adv_p_denonce >= 0.30:
+            self.probaBluff = 0.01
+        else:
+            self.probaBluff = max(0.01, self.probaBluff + (self.bluffReussis - self.bluffRate) * 0.05)
         self.probaDenonce = min(0.5, 0.2 + (self.denonceReussi - self.denonceRate) * 0.05)
 
-        # -- v1 -- #
-      #if adv_p_denonce >= 0.30:
-      #    self.probaBluff = 0.01
-      #else:
-      #    self.probaBluff = max(0.01, self.probaBluff + (self.bluffReussis - self.bluffRate) * 0.05)
-      #self.probaDenonce = min(0.5, 0.2 + (self.denonceReussi - self.denonceRate) * 0.05)
+
+
+
+    def recalcul_proba(self, manche, adv_p_denonce):
+        self.recalcul_proba_v1(manche, adv_p_denonce)
+        #self.recalcul_proba_v2(manche, adv_p_denonce)
