@@ -120,7 +120,7 @@ j2.show_stats()
 
 
 ##### Bot Simple vs IA : 400 cartes, 120 tours (15 étages), 20 cartes par joueur, pas d'affichage, 100 parties
-n_parties = 2
+n_parties = 1000
 afficher = False
 
 j1_wins = 0
@@ -132,7 +132,7 @@ for  _ in range(n_parties) :
     j1 = JoueurPresqueRandom("Bertrand")
     j2 = AdversaireIA("Caroline")
 
-    game = Game(joueurs=[j1, j2], custom_deck=custom_deck, taille_pyramide=15, nb_cartes_par_joueur=20, ui=False)
+    game = Game(joueurs=[j1, j2], custom_deck=custom_deck, taille_pyramide=27, nb_cartes_par_joueur=4, ui=False)
 
     winner = game.jouer()
 
