@@ -74,6 +74,24 @@ class Joueur:
 
 
 
+
+class JoueurRandom(Joueur):
+    def __init__(self, nom):
+        super().__init__(nom, human=False, ui=False)    #attributs parent : nom, human, ui, stop_game, main, points
+
+    def show_stats(self):
+        print(f"{self.nom} (Random) : {self.points} pts")
+
+    def choose_action1(self, carte) :
+        """soit 'o' pour oui soit 'n' pour non"""
+        return "o" if random.random() < 0.5 else "n"
+
+    def choose_action2(self, carte) :
+        return "o" if random.random() < 0.5 else "n"
+
+
+
+
 class JoueurPresqueRandom(Joueur):
     def __init__(self, nom, probaBluff=0.2, probaDenonce=0.5):
         super().__init__(nom, human=False, ui=False)    #attributs parent : nom, human, ui, stop_game, main, points
@@ -229,5 +247,5 @@ class AdversaireIA(JoueurPresqueRandom):
 
 
     def recalcul_proba(self, manche, adv_p_denonce):
-        self.recalcul_proba_v1(manche, adv_p_denonce)
-        #self.recalcul_proba_v2(manche, adv_p_denonce)
+        #self.recalcul_proba_v1(manche, adv_p_denonce)
+        self.recalcul_proba_v2(manche, adv_p_denonce)
