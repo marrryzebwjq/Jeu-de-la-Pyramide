@@ -12,7 +12,7 @@ Il est possible de modifier les paramètres de la partie :
 
 ## Pour afficher des stats et des graphiques
 
-Lancer **main_plot.py** . De même, les configurations sont variables.
+Lancer **main_plots.py** . De même, les configurations sont variables.
 
 ## Autre
 
