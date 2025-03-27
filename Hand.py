@@ -22,6 +22,8 @@ class Main :
         return len(self.cartes)
 
     def piocher(self, deck, nb_cartes) :
+        if len(deck.cartes) < nb_cartes :
+            raise ValueError(f"Pas assez de cartes dans le deck ({len(deck.cartes)} cartes au lieu de {nb_cartes}.).")
         self.cartes = [deck.tirer() for _ in range(nb_cartes)]
 
     def select(self,i) :
