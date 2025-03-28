@@ -79,14 +79,14 @@ class Game:
     def not_denoncer(self, joueur, bluff) :
         p = self.POINTS["claim"]
         if self.ui : print(f"{joueur.nom} ne dénonce pas. {joueur.nom} prends {p} points")
-        joueur.not_denoncer(p)                                          # not denounce
-        self.adversaire(joueur).claimed(p, success=True, bluff=bluff, accused=False, manche=self.tour, adv_p_denonce=self.getAvdPdenonce(joueur)) #claimed success (avec ou sans bluff)
+        joueur.not_denoncer(p)                                                                         # not denounce
+        self.adversaire(joueur).claimed(p, success=True, bluff=bluff, accused=False, manche=self.tour) #claimed success (avec ou sans bluff)
 
     def denoncer_success(self, joueur, carte_pyr) :
         p = self.POINTS["denoncer_success"]
         if self.ui : print(f"{self.adversaire(joueur).nom} a bluffé ! {self.adversaire(joueur).nom} prends {p} points")
-        joueur.denoncer(p, success=True, card=carte_pyr, manche=self.tour, adv_p_denonce=1)                             #denoncer success
-        self.adversaire(joueur).claimed(p, success=False, bluff=True, accused=True, manche=self.tour, adv_p_denonce=self.getAvdPdenonce(joueur))  #claimed failed (bluff raté)
+        joueur.denoncer(p, success=True, card=carte_pyr, manche=self.tour)                             #denoncer success
+        self.adversaire(joueur).claimed(p, success=False, bluff=True, accused=True, manche=self.tour)  #claimed failed (bluff raté)
 
     def denoncer_failed(self, joueur, carte_pyr) :
         p = self.POINTS["denoncer_failed"]
@@ -94,16 +94,10 @@ class Game:
         if self.ui :
             print(self.adversaire(joueur))
             print(f"{self.adversaire(joueur).nom} possédait la carte... {joueur.nom} prends {p} points")
-        joueur.denoncer(p, success=False, card=carte_pyr, manche=self.tour, adv_p_denonce=1)                             #denoncer failed
-        self.adversaire(joueur).claimed(p, success=True, bluff=False, accused=True, manche=self.tour, adv_p_denonce=self.getAvdPdenonce(joueur))   #claim success (pas bluff)
+        joueur.denoncer(p, success=False, card=carte_pyr, manche=self.tour)                             #denoncer failed
+        self.adversaire(joueur).claimed(p, success=True, bluff=False, accused=True, manche=self.tour)   #claim success (pas bluff)
 
 
-    ###### à modifier ###### (est uniquement utilisé dans la V1, voir Joueur.py, ligne 231)
-    def getAvdPdenonce(self, joueur):
-        if isinstance(self.adversaire(joueur), JoueurPresqueRandom):
-            return self.adversaire(joueur).probaDenonce
-        return 0.5
-    ########################
 
     # ---- jeu ---- #
 
