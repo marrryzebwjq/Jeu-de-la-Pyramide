@@ -126,6 +126,29 @@ print(f'ia_wins : {ia_wins}/{n_parties}')
 """
 
 
+##### IA vs IA : Graphiques
+
+liste_j1_wins = []
+liste_ia_wins = []
+x = range(5, 28)
+
+for i in x :
+    j1_wins, ia_wins, n_parties, j1, j2 = stats_ia_ia(n_parties=1000, nb_val=int(2+i*(i+1)/8)+1, taille_pyramide=i, nb_cartes_par_joueur=4)
+    liste_j1_wins.append(j1_wins)
+    liste_ia_wins.append(ia_wins)
+
+plt.plot(x, liste_j1_wins, label='IA 1')
+plt.plot(x, liste_ia_wins, label='IA 2')
+plt.xlabel('Nombre d\'étages dans la pyramide')
+plt.ylabel('Nombre de victoires')
+plt.ylim([0, 1000])
+plt.title('Performances en fonction de la taille de la pyramide\n(main de 4 cartes)')
+plt.legend()
+
+#plt.savefig('figures/perf_ia_ia-taille_pyramide.png')
+plt.show()
+
+
 ##### Bot Random vs IA : Graphiques
 
 liste_j1_wins = []
@@ -133,7 +156,7 @@ liste_ia_wins = []
 x = range(5, 28)
 
 for i in x :
-    j1_wins, ia_wins, n_parties, j1, j2 = stats_rand_ia(n_parties=1000, nb_val=int(2+i*(i+1)/8), taille_pyramide=i-1, nb_cartes_par_joueur=4)
+    j1_wins, ia_wins, n_parties, j1, j2 = stats_rand_ia(n_parties=1000, nb_val=int(2+i*(i+1)/8)+1, taille_pyramide=i, nb_cartes_par_joueur=4)
     liste_j1_wins.append(j1_wins)
     liste_ia_wins.append(ia_wins)
 
@@ -184,7 +207,7 @@ x = range(5, 27)
 
 for i in x :
 
-    j1_wins, ia_wins, n_parties, j1, j2 = stats_bot_ia(n_parties=1000, nb_val=100, taille_pyramide=i, nb_cartes_par_joueur=4)
+    j1_wins, ia_wins, n_parties, j1, j2 = stats_bot_ia(n_parties=1000, nb_val=100, taille_pyramide=i, nb_cartes_par_joueur=1)
     liste_j1_wins.append(j1_wins)
     liste_ia_wins.append(ia_wins)
 
@@ -201,25 +224,3 @@ plt.legend()
 #plt.savefig('figures/perf_bot_ia-taille_pyramide-petite_main.png')
 plt.show()
 
-
-##### IA vs IA : Graphiques
-
-liste_j1_wins = []
-liste_ia_wins = []
-x = range(5, 28)
-
-for i in x :
-    j1_wins, ia_wins, n_parties, j1, j2 = stats_ia_ia(n_parties=1000, nb_val=int(2+i*(i+1)/8), taille_pyramide=i-1, nb_cartes_par_joueur=4)
-    liste_j1_wins.append(j1_wins)
-    liste_ia_wins.append(ia_wins)
-
-plt.plot(x, liste_j1_wins, label='IA 1')
-plt.plot(x, liste_ia_wins, label='IA 2')
-plt.xlabel('Nombre d\'étages dans la pyramide')
-plt.ylabel('Nombre de victoires')
-plt.ylim([0, 1000])
-plt.title('Performances en fonction de la taille de la pyramide\n(main de 4 cartes)')
-plt.legend()
-
-#plt.savefig('figures/perf_ia_ia-taille_pyramide.png')
-plt.show()
