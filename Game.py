@@ -1,7 +1,7 @@
-from Carte import Carte
+#from Carte import Carte
 from Deck import Deck
-from Hand import Main
-from Joueur import Joueur, JoueurPresqueRandom, AdversaireIA
+#from Hand import Main
+#from Joueur import Joueur, JoueurPresqueRandom, AdversaireIA
 from Pyramide import Pyramide
 
 #from IPython.display import clear_output   # pour clear l'output dans un notebook (.pynb)

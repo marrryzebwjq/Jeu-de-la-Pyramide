@@ -1,5 +1,5 @@
-from Carte import Carte
-from Deck import Deck
+#from Carte import Carte
+#from Deck import Deck
 #from collections import abc
 
 class Main :
@@ -13,7 +13,7 @@ class Main :
         affichage = ""
         for i in range(len(self.cartes)) :
             if (i+1) == self.selected : #self.show_selected and
-                affichage += self.cartes[i].montrer().__str__()+" " #########""""
+                affichage += self.cartes[i].montrer().__str__()+" "
             else :
                 affichage += self.cartes[i].__str__()+" "
         return affichage

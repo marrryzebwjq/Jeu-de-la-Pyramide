@@ -1,5 +1,5 @@
-from Carte import Carte
-from Deck import Deck
+#from Carte import Carte
+#from Deck import Deck
 from Hand import Main
 import random
 
