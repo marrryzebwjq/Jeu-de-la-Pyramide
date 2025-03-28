@@ -18,10 +18,11 @@ class Game:
 
         self.joueurs = joueurs
         self.nb_cartes_par_joueur = nb_cartes_par_joueur
+        self.taille_pyramide = taille_pyramide
         self.deck = custom_deck if custom_deck else self.new_deck()
         self.deck.melanger()
 
-        self.pyramide = Pyramide(taille_pyramide, self.deck)
+        self.pyramide = None
         self.tour = 1
         self.inputs = {joueur.nom : False for joueur in self.joueurs}
 
@@ -59,7 +60,7 @@ class Game:
 
     def adversaire(self, joueur) :
         if joueur not in self.joueurs :
-            return None
+            raise ValueError("L'adversaire n'existe pas.")
         for j2 in self.joueurs :
             if j2 != joueur :
                 return j2
@@ -103,6 +104,7 @@ class Game:
 
     def jouer(self) : #loop jusque pyramide vide
         #-- début de partie : distribution --#
+        self.pyramide = Pyramide(self.taille_pyramide, self.deck)
         for joueur in self.joueurs :
             joueur.recevoir_main(self.deck, self.nb_cartes_par_joueur)
             #afficher main de maniere super discrete
