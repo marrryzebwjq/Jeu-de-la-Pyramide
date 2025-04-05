@@ -80,7 +80,7 @@ class Game:
     def not_denoncer(self, joueur, bluff) :
         p = self.POINTS["claim"]
         if self.ui : print(f"{joueur.nom} ne dénonce pas. {joueur.nom} prends {p} points")
-        joueur.not_denoncer(p)                                                                         # not denounce
+        joueur.not_denoncer(p, manche=self.tour)                                                                         # not denounce
         self.adversaire(joueur).claimed(p, success=True, bluff=bluff, accused=False, manche=self.tour) #claimed success (avec ou sans bluff)
 
     def denoncer_success(self, joueur, carte_pyr) :
