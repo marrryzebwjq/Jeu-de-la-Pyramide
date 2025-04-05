@@ -14,7 +14,7 @@ A chaque tour, une carte de la pyramide est retournée en partant du bas.
 
 > Si un joueur possède une carte de même valeur, il peut l'**annoncer** et donner *1 point* à son adversaire. Il peut aussi **bluffer** s'il n'a pas la carte.
 
-> L'adversaire peut l'**accuser de bluff** et s'il se fait démasquer, il en prend le *double de points*. Si le joueur qui a accusé à tord, l'accusé doit montrer sa carte pour prouver qu'il ne pent pas, et l'accusateur est pénalisé de *3 points*.
+> L'adversaire peut l'**accuser de bluff** et si le menteur se fait démasquer, il en prend le *double de points*. Si l'adversaire qui a accusé à tord, l'accusé doit montrer sa carte pour prouver qu'il ne ment pas, et l'accusateur est pénalisé de *3 points*.
 
 La partie se termine lorsque toutes les cartes de la pyramide sont dévoilées. Le gagnant est celui ayant *le moins de points*.
 
