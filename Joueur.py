@@ -1,9 +1,9 @@
-#from Carte import Carte
-#from Deck import Deck
 from Hand import Main
 import random
 
 class Joueur:
+    """ Un joueur HUMAIN.
+    """
     ACTIONS = {"o" : "oui", "n" : "non"}
     STOP = ["stop", "quit", "q", "exit"]
 
@@ -17,18 +17,21 @@ class Joueur:
         self.points = 0
 
     def __str__(self):
+        """ Affichage """
         return f"{self.nom} ({self.points} pts) : {self.main.__str__()}"
 
     def show_stats(self):
+        """ Affichage """
         print(f"{self.nom} (Human) : {self.points} pts")
 
 
-    # début de jeu
+    # actions de début de jeu
     def recevoir_main(self, deck, nb_cartes):
         self.main = Main(deck, nb_cartes)
 
-    # tour
+    # actions pendant un tour
     def choose_action1(self, carte) :
+        """ Choisir entre jouer une carte ou passer son tour."""
         i=None
         while i not in self.ACTIONS :
             i = input()
@@ -38,6 +41,7 @@ class Joueur:
         return i
 
     def choose_action2(self, carte) :
+        """ Choisir entre dénoncer l'adversaire ou le laisser."""
         i=None
         while i not in self.ACTIONS :
             i = input()
@@ -56,7 +60,7 @@ class Joueur:
             i+=1
         return False
 
-    # fin de tour
+    # actions de fin de tour
     def ajouter_points(self, points) :
         self.points += points
         return self.points
@@ -76,23 +80,29 @@ class Joueur:
 
 
 class JoueurRandom(Joueur):
+    """ Joueur qui joue au hasard avec une proba uniforme à chaque action possible.
+    """
     def __init__(self, nom):
         super().__init__(nom, human=False, ui=False)    #attributs parent : nom, human, ui, stop_game, main, points
 
     def show_stats(self):
+        """ Affichage """
         print(f"{self.nom} (Random) : {self.points} pts")
 
     def choose_action1(self, carte) :
-        """soit 'o' pour oui soit 'n' pour non"""
+        """ Choisir entre jouer une carte ou passer son tour."""
         return "o" if random.random() < 0.5 else "n"
 
     def choose_action2(self, carte) :
+        """ Choisir entre dénoncer l'adversaire ou le laisser."""
         return "o" if random.random() < 0.5 else "n"
 
 
 
 
 class JoueurPresqueRandom(Joueur):
+    """ Joueur qui joue avec des probas fixées.
+    """
     def __init__(self, nom, probaBluff=0.2, probaDenonce=0.5):
         super().__init__(nom, human=False, ui=False)    #attributs parent : nom, human, ui, stop_game, main, points
         self.probaBluff = probaBluff                    # Probabilité de bluff du joueur
@@ -105,22 +115,26 @@ class JoueurPresqueRandom(Joueur):
     # claimed(self, points, success, bluff, accused, manche) - denoncer(self, points, success, card, manche) - not_denoncer(self, points)
 
     def show_stats(self):
+        """ Affichage """
         print(f"{self.nom} (IA Simple) : {self.points} pts")
         print(f"Proba de bluffer     : {self.probaBluff}")
         print(f"Proba de dénoncement : {self.probaDenonce}")
 
 
-    def choose_action1(self, carte) :
-        """soit 'o' pour oui soit 'n' pour non"""
-        return "o" if random.random() < self.probaBluff or self.possede_carte(carte) else "n" # Le joueur bluffe s'il a une probabilité de bluff > une valeur aléatoire ou s'il possède la carte
+    def choose_action1(self, carte) : # Le joueur bluffe s'il a une probabilité de bluff > une valeur aléatoire ou s'il possède la carte
+        """ Choisir entre jouer une carte ou passer son tour."""
+        return "o" if random.random() < self.probaBluff or self.possede_carte(carte) else "n"
 
     def choose_action2(self, carte) :
-        return "o" if random.random() < self.probaDenonce else "n" # Le joueur accuse s'il pense que l'autre bluffe
+        """ Choisir entre dénoncer l'adversaire ou le laisser."""
+        return "o" if random.random() < self.probaDenonce else "n"
 
 
 
 
 class AdversaireIA(JoueurPresqueRandom):
+    """ Joueur qui s'adapte en fonction des actions de l'adversaire.
+    """
     def __init__(self, nom="IA", probaBluff=0.2, probaDenonce=0.2):
         super().__init__(nom, probaBluff, probaDenonce)  #attributs parent : nom, human, ui, stop_game, main, points - probaBluff, probaDenonce
 
@@ -152,8 +166,9 @@ class AdversaireIA(JoueurPresqueRandom):
         print('\n')
         
 
-    #tour
+    # actions pendant un tour
     def choose_action2(self, carte):
+        """ Choisir entre dénoncer l'adversaire ou le laisser."""
         for c in self.cartesAdversaire :                    # Si la carte est connue comme appartenant au joueur, ne pas accuser
             if c.same_value(carte) :
                 return "n"
@@ -163,7 +178,8 @@ class AdversaireIA(JoueurPresqueRandom):
 
 
 
-    #fin de tour
+    # actions de fin de tour :
+    # répartition des points et recalculs en fonction de si le joueur a joué une carte/dénoncé/pas dénoncé
     def claimed(self, points, success, bluff, accused, manche) : #le joueur a claim une carte...
         if success :    #...et il a gagné
             if bluff :
@@ -201,7 +217,9 @@ class AdversaireIA(JoueurPresqueRandom):
 
 
 
-    def recalcul_proba(self, manche): # Si l'adversaire dénonce souvent (>= 0.3), l'IA cesse presque totalement de bluffer
+    def recalcul_proba(self, manche):
+        """ Recalcul des probabilités en fonction des actions de la manche en cours
+        """
         # -- v2 -- #
         # Si l'adversaire dénonce souvent (>= 0.3), l'IA cesse presque totalement de bluffer
         if (self.cptAccuse >= 1 and manche == 20 ):
@@ -216,8 +234,9 @@ class AdversaireIA(JoueurPresqueRandom):
             self.probaDenonce = min(0.5, 0.2 + (self.denonceReussi - self.denonceRate) * 0.05)
     
     """
-    def recalcul_proba_v1(self, manche, adv_p_denonce): # Si l'adversaire dénonce souvent (>= 0.3), l'IA cesse presque totalement de bluffer
+    def recalcul_proba_v1(self, manche, adv_p_denonce):
         # -- v1 -- #
+        # Si l'adversaire dénonce souvent (>= 0.3), l'IA cesse presque totalement de bluffer
         if adv_p_denonce >= 0.30:
             self.probaBluff = 0.01
         else:

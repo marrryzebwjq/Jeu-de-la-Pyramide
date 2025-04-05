@@ -1,8 +1,6 @@
-#from Carte import Carte
-#from Deck import Deck
-#from collections import abc
-
 class Main :
+    """ La main d'un joueur.
+    """
     def __init__(self, deck, nb_cartes) :
         self.cartes = None
         self.selected = 0 #à partir de 1

@@ -2,6 +2,8 @@ from Carte import Carte
 import random
 
 class Deck :
+    """ Un tas de cartes.
+    """
     def __init__(self, taille=52, custom_cards=False, ui=False) :
         self.ui = ui
         self.taille = taille #52 ou 32 ou jspquoi

@@ -1,9 +1,9 @@
 from copy import copy
 
 class Carte :
-    """
-    Une carte à jouer (pour un jeu classique de 52 cartes, sans joker).
-    (j'ai mis couleur pour voir, on peut s'en servir pour identifier les cartes pendant le jeu, après on en a pas vraiment besoin mais je pose ça là)
+    """ Une carte à jouer ayant une valeur et une couleur.
+    Par défaut c'est une carte pour un jeu classique de 52 cartes (A (AS) jusque K (ROI), sans joker).
+    Sinon c'est une carte de valeur entre 1 et n.
     """
     VALEURS = {1:"A ", 2:"2 ", 3:"3 ", 4:"4 ", 5:"5 ", 6:"6 ", 7:"7 ", 8:"8 ", 9:"9 ", 10:"10", 11:"J ", 12:"Q ", 13:"K "}
     COULEURS = {"carreau" : "♦", "coeur" : "♥", "pique" : "♠", "trefle" : "♣"}

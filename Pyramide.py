@@ -4,6 +4,8 @@
 #from Joueur import Joueur, JoueurPresqueRandom, AdversaireIA
 
 class Pyramide :
+    """ Une pyramide de cartes.
+    """
     def __init__(self, hauteur, deck) :
         if hauteur < 1 :
             raise ValueError(f"Hauteur {hauteur} invalide.")
