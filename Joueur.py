@@ -161,7 +161,7 @@ class AdversaireIA(JoueurPresqueRandom):
         print(f"Bluff réussis/ratés           : {self.bluffReussis} | {self.bluffRate}")
         print(f"Dénonciations reussies/ratées : {self.denonceReussi} | {self.denonceRate}")
         print(f"Nombre d'accusations reçues   : {self.cptAccuse}")
-        print(f"Cartes mémorisées : ")
+        print("Cartes mémorisées : ", end=' ')
         for c in self.cartesAdversaire : print(c, end=' ')
         print('\n')
         
