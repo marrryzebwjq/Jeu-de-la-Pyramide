@@ -6,120 +6,47 @@ from Joueur import Joueur, JoueurRandom, JoueurPresqueRandom, AdversaireIA
 from Game import Game
 
 import matplotlib.pyplot as plt
+from copy import deepcopy
 #import numpy as np
 
 
-def stats_bot_bot(n_parties=1000, nb_val=100, taille_pyramide=27, nb_cartes_par_joueur=4, afficher_score=False, ui=False) :
-
-    j1_wins = 0; ia_wins = 0
+def stats(j1, j2, n_parties=1000, nb_val=100, taille_pyramide=27, nb_cartes_par_joueur=4, savej1=False, savej2=False) :
+    if not savej1 : j1_reset = deepcopy(j1)
+    if not savej2 : j2_reset = deepcopy(j2)
+    j1_wins = 0; j2_wins = 0
+    
     for  _ in range(n_parties) :
-        cards = [Carte(valeur, couleur, custom_val=True) for valeur in range(1, nb_val+1) for couleur in Carte.COULEURS]  # 4 cartes par valeur
+        # reset
+        cards   = [Carte(valeur, couleur, custom_val=True) for valeur in range(1, nb_val+1) for couleur in Carte.COULEURS]  # 4 cartes par valeur
         custom_deck = Deck(custom_cards=cards)
-
-        j1 = JoueurPresqueRandom("Bertrand")
-        j2 = JoueurPresqueRandom("Brigitte")
-
-        game = Game(joueurs=[j1, j2], custom_deck=custom_deck, taille_pyramide=taille_pyramide, nb_cartes_par_joueur=nb_cartes_par_joueur, ui=ui)
+        if not savej1 : j1 = deepcopy(j1_reset)
+        if not savej2 : j2 = deepcopy(j2_reset)
+        
+        # lancement de la partie
+        game = Game(joueurs=[j1, j2], custom_deck=custom_deck, taille_pyramide=taille_pyramide, nb_cartes_par_joueur=nb_cartes_par_joueur, ui=False)
         winner = game.jouer()
-
+        
+        # points
         if winner == j1 :
             j1_wins += 1
         elif winner == j2 :
-            ia_wins += 1
-        if afficher_score :
-            #print(j1)
-            print(j2, '\n')
-            j1.show_stats(); print()
-            j2.show_stats()
+            j2_wins += 1
 
-    return j1_wins, ia_wins, n_parties, j1, j2
+    return j1_wins, j2_wins, n_parties, j1, j2
 
 
-def stats_bot_ia(n_parties=1000, nb_val=100, taille_pyramide=27, nb_cartes_par_joueur=4, afficher_score=False, ui=False) :
-
-    j1_wins = 0; ia_wins = 0
-    for  _ in range(n_parties) :
-        cards = [Carte(valeur, couleur, custom_val=True) for valeur in range(1, nb_val+1) for couleur in Carte.COULEURS]  # 4 cartes par valeur
-        custom_deck = Deck(custom_cards=cards)
-
-        j1 = JoueurPresqueRandom("Bertrand")
-        j2 = AdversaireIA("Isabelle")
-
-        game = Game(joueurs=[j1, j2], custom_deck=custom_deck, taille_pyramide=taille_pyramide, nb_cartes_par_joueur=nb_cartes_par_joueur, ui=ui)
-        winner = game.jouer()
-
-        if winner == j1 :
-            j1_wins += 1
-        elif winner == j2 :
-            ia_wins += 1
-        if afficher_score :
-            #print(j1)
-            print(j2, '\n')
-            j1.show_stats(); print()
-            j2.show_stats()
-
-    return j1_wins, ia_wins, n_parties, j1, j2
-
-
-def stats_rand_ia(n_parties=1000, nb_val=100, taille_pyramide=27, nb_cartes_par_joueur=4, afficher_score=False, ui=False) :
-
-    j1_wins = 0; ia_wins = 0
-    for  _ in range(n_parties) :
-        cards = [Carte(valeur, couleur, custom_val=True) for valeur in range(1, nb_val+1) for couleur in Carte.COULEURS]  # 4 cartes par valeur
-        custom_deck = Deck(custom_cards=cards)
-
-        j1 = JoueurRandom("Bertrand")
-        j2 = AdversaireIA("Isabelle")
-
-        game = Game(joueurs=[j1, j2], custom_deck=custom_deck, taille_pyramide=taille_pyramide, nb_cartes_par_joueur=nb_cartes_par_joueur, ui=ui)
-        winner = game.jouer()
-
-        if winner == j1 :
-            j1_wins += 1
-        elif winner == j2 :
-            ia_wins += 1
-        if afficher_score :
-            #print(j1)
-            print(j2, '\n')
-            j1.show_stats(); print()
-            j2.show_stats()
-
-    return j1_wins, ia_wins, n_parties, j1, j2
-
-
-def stats_ia_ia(n_parties=1000, nb_val=100, taille_pyramide=27, nb_cartes_par_joueur=4, afficher_score=False, ui=False) :
-
-    j1_wins = 0; ia_wins = 0
-    for  _ in range(n_parties) :
-        cards = [Carte(valeur, couleur, custom_val=True) for valeur in range(1, nb_val+1) for couleur in Carte.COULEURS]  # 4 cartes par valeur
-        custom_deck = Deck(custom_cards=cards)
-
-        j1 = AdversaireIA("Igor")
-        j2 = AdversaireIA("Isabelle")
-
-        game = Game(joueurs=[j1, j2], custom_deck=custom_deck, taille_pyramide=taille_pyramide, nb_cartes_par_joueur=nb_cartes_par_joueur, ui=ui)
-        winner = game.jouer()
-
-        if winner == j1 :
-            j1_wins += 1
-        elif winner == j2 :
-            ia_wins += 1
-        if afficher_score :
-            print(j2, '\n')
-            j1.show_stats(); print()
-            j2.show_stats()
-
-    return j1_wins, ia_wins, n_parties, j1, j2
-
-
+j1rand = JoueurRandom("Richard")
+bot1 = JoueurPresqueRandom("Patrick")
+bot2 = JoueurPresqueRandom("Pascale")
+ia1 = AdversaireIA("Igor")
+ia2 = AdversaireIA("Isabelle")
 
 ##### Bot Simple vs IA : 400 cartes, 120 tours (27 étages), 4 cartes par joueur, pas d'affichage, 1000 parties
 
 """
 n_parties = 1000
-afficher = False
 
-j1_wins, ia_wins, n_parties, j1, j2 = stats_bot_ia(n_parties=n_parties, nb_val=100, taille_pyramide=27, nb_cartes_par_joueur=4, afficher_score=afficher)
+j1_wins, ia_wins, n_parties, j1, j2 = stats(bot1, ia2, n_parties=n_parties, nb_val=100)
 
 print(f'j1_wins : {j1_wins}/{n_parties}')
 print(f'ia_wins : {ia_wins}/{n_parties}')
@@ -133,7 +60,7 @@ liste_ia_wins = []
 x = range(5, 28)
 
 for i in x :
-    j1_wins, ia_wins, n_parties, j1, j2 = stats_ia_ia(n_parties=1000, nb_val=int(2+i*(i+1)/8)+1, taille_pyramide=i, nb_cartes_par_joueur=4)
+    j1_wins, ia_wins, n_parties, j1, j2 = stats(ia1, ia2, n_parties=1000, nb_val=int(2+i*(i+1)/8)+1, taille_pyramide=i, nb_cartes_par_joueur=4)
     liste_j1_wins.append(j1_wins)
     liste_ia_wins.append(ia_wins)
 
@@ -156,7 +83,7 @@ liste_ia_wins = []
 x = range(5, 28)
 
 for i in x :
-    j1_wins, ia_wins, n_parties, j1, j2 = stats_rand_ia(n_parties=1000, nb_val=int(2+i*(i+1)/8)+1, taille_pyramide=i, nb_cartes_par_joueur=4)
+    j1_wins, ia_wins, n_parties, j1, j2 = stats(j1rand, ia2, n_parties=1000, nb_val=int(2+i*(i+1)/8)+1, taille_pyramide=i, nb_cartes_par_joueur=4)
     liste_j1_wins.append(j1_wins)
     liste_ia_wins.append(ia_wins)
 
@@ -183,7 +110,7 @@ liste_j1_wins = []
 liste_ia_wins = []
 x = range(100, 400, 5)
 for i in x :
-    j1_wins, ia_wins, n_parties, j1, j2 = stats_rand_ia(n_parties=500, nb_val=i, taille_pyramide=etages, nb_cartes_par_joueur=20)
+    j1_wins, ia_wins, n_parties, j1, j2 = stats(j1rand, ia2, n_parties=500, nb_val=i, taille_pyramide=etages, nb_cartes_par_joueur=20)
     liste_j1_wins.append(j1_wins)
     liste_ia_wins.append(ia_wins)
 
@@ -207,7 +134,7 @@ x = range(5, 27)
 
 for i in x :
 
-    j1_wins, ia_wins, n_parties, j1, j2 = stats_bot_ia(n_parties=1000, nb_val=100, taille_pyramide=i, nb_cartes_par_joueur=1)
+    j1_wins, ia_wins, n_parties, j1, j2 = stats(bot1, ia2, n_parties=1000, nb_val=100, taille_pyramide=i, nb_cartes_par_joueur=1)
     liste_j1_wins.append(j1_wins)
     liste_ia_wins.append(ia_wins)
 
